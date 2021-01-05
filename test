@@ -1,0 +1,19 @@
+---
+- name: change root password
+  hosts: all
+  become: yes
+  gather_facts: false
+  strategy: free
+  vars:
+    username: root
+
+  tasks:
+    - name: Change {{ username }} password
+      user:
+        name: "{{ username }}"
+        password: "{{ hash_password }}"
+      ignore_errors: yes
+...
+
+python -c 'import crypt,getpass; print crypt.crypt(getpass.getpass())'
+
